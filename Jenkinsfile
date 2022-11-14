@@ -11,13 +11,15 @@ pipeline {
         stage('Build') {
             steps {
                 sh "./check.sh check-image"
-                docker build --tag front .
+                sh '''docker build --tag front .
+                '''
             }
         }
         stage('Deploy') {
             steps {
                 sh "./check check-ps"
-                docker run -p 3000:3000 --name front front
+                sh '''docker run -p 3000:3000 --name front front
+                '''
             }
         }
     }
