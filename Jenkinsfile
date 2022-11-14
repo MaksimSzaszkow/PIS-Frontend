@@ -18,9 +18,9 @@ pipeline {
         }
         stage('Deploy') {
             steps {
-                if docker ps -a | grep front; then
+                sh "if docker ps -a | grep front; then
                     docker rm front --force
-                fi
+                fi"
                 docker run -p 3000:3000 --name front front
             }
         }
