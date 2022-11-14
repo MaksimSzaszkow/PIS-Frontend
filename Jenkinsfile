@@ -4,25 +4,19 @@ pipeline {
     stages {
         stage('Test') {
             steps {
-                sh '''npm run test:coverage
-                '''
+                sh "chmod +x check.sh"
+                sh "./check.sh test"
             }
         }
         stage('Build') {
             steps {
-                sh '''if docker image list | grep front; then
-                         docker rmi front
-                      fi
-                '''
+                sh "./check.sh check-image"
                 docker build --tag front .
             }
         }
         stage('Deploy') {
             steps {
-                sh '''if docker ps -a | grep front; then
-                        docker rm front --force
-                      fi
-                '''
+                sh "./check check-ps"
                 docker run -p 3000:3000 --name front front
             }
         }
