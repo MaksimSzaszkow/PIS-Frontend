@@ -1,7 +1,7 @@
 "Front-end build, test & deploy pipeline"
 pipeline {
-    agent { dockerfile true }
-    stages {
+    // agent { dockerfile true }
+    // stages {
     //     stage('Test') {
     //         steps {
     //             sh 'chmod +x check.sh'
@@ -15,13 +15,21 @@ pipeline {
     //             sh 'docker build --tag front .'
     //         }
     //     }
-        stage('Deploy') {
-            //agent { dockerfile true }
+        // stage('Deploy') {
+        //     //agent { dockerfile true }
+        //     steps {
+        //         //sh 'chmod +x check.sh'
+        //         //sh './check.sh check-ps'
+        //         //sh 'docker run -p 3000:3000 --name front front'
+        //         sh 'ls'
+        //     }
+        // }
+    agent { dockerfile true }
+    stages {
+        stage('Test') {
             steps {
-                //sh 'chmod +x check.sh'
-                //sh './check.sh check-ps'
-                //sh 'docker run -p 3000:3000 --name front front'
-                sh 'ls'
+                sh 'node --version'
+                sh 'svn --version'
             }
         }
     }
