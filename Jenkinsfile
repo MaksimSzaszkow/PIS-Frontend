@@ -1,6 +1,6 @@
 "Front-end build, test & deploy pipeline"
 pipeline {
-    agent none
+    agent { dockerfile true }
     stages {
     //     stage('Test') {
     //         steps {
@@ -16,7 +16,7 @@ pipeline {
     //         }
     //     }
         stage('Deploy') {
-            agent { dockerfile true }
+            //agent { dockerfile true }
             steps {
                 //sh 'chmod +x check.sh'
                 //sh './check.sh check-ps'
