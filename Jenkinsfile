@@ -1,6 +1,6 @@
 "Front-end build, test & deploy pipeline"
 pipeline {
-    agent any
+    agent none
     stages {
     //     stage('Test') {
     //         steps {
