@@ -9,9 +9,9 @@ pipeline {
         }
         stage('Build') {
             steps {
-                if docker image list | grep front; then
+                sh "if docker image list | grep front; then
                     docker rmi front
-                fi
+                fi"
 
                 docker build --tag front .
             }
