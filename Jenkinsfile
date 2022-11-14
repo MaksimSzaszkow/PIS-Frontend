@@ -21,7 +21,7 @@ pipeline {
                 //sh 'chmod +x check.sh'
                 //sh './check.sh check-ps'
                 //sh 'docker run -p 3000:3000 --name front front'
-                ls
+                sh 'ls'
             }
         }
     }
