@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('Test') {
             steps {
-                npm run test:coverage
+                sh "npm run test:coverage"
             }
         }
         stage('Build') {
