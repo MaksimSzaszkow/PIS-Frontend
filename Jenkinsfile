@@ -1,4 +1,4 @@
-"Front-end build, test & deploy pipeline"
+"Front-end test, build & deploy pipeline"
 pipeline {
     agent any
     stages {
@@ -19,18 +19,8 @@ pipeline {
             steps {
                 sh 'chmod +x check.sh'
                 sh './check.sh check-ps'
-                sh 'docker run -p 3000:3000 --name front front'
-                //sh 'ls'
+                sh 'docker run -d -p 3000:3000 --name front front'
             }
         }
-    // agent { dockerfile true }
-    // stages {
-    //     stage('Test') {
-    //         steps {
-    //             sh 'node --version'
-    //             sh 'svn --version'
-    //         }
-    //     }
-    // }
     }
 }
