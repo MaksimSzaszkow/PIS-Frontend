@@ -1,8 +1,17 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import logo from './logo.svg';
 import './App.css';
+import axios from 'axios';
 
 function App() {
+
+  const [data, setData] = useState("");
+  useEffect(() => {
+    axios.get(`${process.env.REACT_APP_API_URL}`).then((res) => {
+      setData(res.data);
+    })
+  }, [])
+
   return (
     <div className="App">
       <header className="App-header">
@@ -18,6 +27,9 @@ function App() {
         >
           Learn React
         </a>
+        <p>
+          message from backend: {data}
+        </p>
       </header>
     </div>
   );
