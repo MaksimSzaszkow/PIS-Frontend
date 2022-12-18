@@ -1,7 +1,16 @@
-"Front-end test, build & deploy pipeline"
+'Front-end test, build & deploy pipeline'
 pipeline {
     agent any
     stages {
+        stage('SCM') {
+            checkout scm
+        }
+        stage('SonarQube Analysis') {
+            def scannerHome = tool 'SonarScanner'
+            withSonarQubeEnv() {
+                sh "${scannerHome}/bin/sonar-scanner"
+            }
+        }
         stage('Test') {
             steps {
                 sh 'chmod +x check.sh'
