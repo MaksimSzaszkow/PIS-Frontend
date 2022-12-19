@@ -2,14 +2,12 @@
 pipeline {
     agent any
     stages {
-        stage('SCM') {
-            checkout scm
-        }
         stage('SonarQube Analysis') {
-            def scannerHome = tool 'SonarScanner'
-            withSonarQubeEnv() {
-                sh "${scannerHome}/bin/sonar-scanner"
-            }
+            sonar-scanner \
+                -Dsonar.projectKey=pis-front \
+                -Dsonar.sources=. \
+                -Dsonar.host.url=https://ed63-194-29-160-174.eu.ngrok.io/ \
+                -Dsonar.login=sqp_dc3ef22a2f456e54ca1df3193c3b71d4ecde30be
         }
         stage('Test') {
             steps {
