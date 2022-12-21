@@ -1,7 +1,4 @@
-import axios from "axios";
-import { onAuthStateChanged, signInWithEmailAndPassword, signOut } from "firebase/auth";
-import { createContext, useContext, useEffect, useState } from "react";
-import {auth} from './firebase-config'
+import { createContext, useContext, useState } from "react";
 
 export const AuthContext = createContext();
 
@@ -11,38 +8,50 @@ export function useAuth(){
 
 export const AuthProvider = ({children}) => {
     const [currentUser, setCurrentUser] = useState(null)
-    const [loading, setLoading] = useState(true)
+    const [loading, setLoading] = useState(false)
 
-    let authFetch = axios.create({
-        withCredentials: true,
-        baseURL: "http://localhost:8000"
-    })
+    const login = async () => {
+        setLoading(true)
+        const username = "sherlock"
+        const password = "password"
+        const data = await fetch('http://localhost:8000/login', {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({'username': username, 'password': password})
+        })
+        const jsonData = await data.json();
+        setCurrentUser(jsonData)
+        setLoading(false)
+    }
 
     const logout = () => {
-        return signOut(auth)
+        setLoading(true)
+        setCurrentUser(null)
+        setLoading(false)
     }
 
     const verifyAuth = async () => {
-        const data = await authFetch.get('/firebase/default')
-        console.log(data)
-    }
-
-    useEffect(() => {
-        signInWithEmailAndPassword(auth, 'user@gmail.com', 'password')
-    }, [auth])
-
-    useEffect(() => {
-        const unsubscribe = onAuthStateChanged(auth, async (user) => {
-            setLoading(true)
-            setCurrentUser(user)
-            // W TYM MIEJSCU USTAWIC HEADERY authFetcha !!!!!!!!!!!
-            setLoading(false)
+        setLoading(true)
+        const data = await fetch('http://localhost:8000/', {
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${currentUser?.access_token}`
+            }
         })
-        return unsubscribe
-    }, [])
+        if (data){
+            setLoading(false)
+            return await data.text()
+        }
+        setLoading(false)
+        return "Unauthorized"
+    }
 
     return <AuthContext.Provider
     value={{currentUser,
+        login,
         logout,
         verifyAuth}}>
         {!loading && children}
