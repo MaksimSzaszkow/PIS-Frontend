@@ -1,18 +1,12 @@
-import {useState} from 'react';
 import logo from './logo.svg';
 import './App.css';
 import { useAuth } from './Auth/AuthContext';
 
-function App() {
-  const {currentUser, logout, verifyAuth, login} = useAuth();
-
-  const [data, setData] = useState("");
+function App() {  
+  const {currentUser, logout, verifyAuth, login, data} = useAuth();
 
   const handleAuth = async () => {
-    const received = await verifyAuth();
-    console.log(received.replace('{', '').replace('}', ''))
-    setData(received)
-    console.log(data)
+    await verifyAuth();
   }
 
   return (

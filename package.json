@@ -45,5 +45,6 @@
   },
   "devDependencies": {
     "sonarqube-scanner": "^2.8.2"
-  }
+  },
+  "proxy": "http://localhost:8000"
 }
