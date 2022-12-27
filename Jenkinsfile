@@ -7,7 +7,7 @@ pipeline {
                 sh 'sonar-scanner \
                     -Dsonar.projectKey=pis-front \
                     -Dsonar.sources=. \
-                    -Dsonar.host.url=https://ed63-194-29-160-174.eu.ngrok.io/ \
+                    -Dsonar.host.url=http://localhost:9000/ \
                     -Dsonar.login=sqp_dc3ef22a2f456e54ca1df3193c3b71d4ecde30be'
             }
         }
