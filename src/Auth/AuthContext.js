@@ -15,7 +15,7 @@ export const AuthProvider = ({children}) => {
         setLoading(true)
         const username = "sherlock"
         const password = "password"
-        const data = await fetch('https://ff38-194-29-160-174.eu.ngrok.io/login', {
+        const data = await fetch('localhost:8000/login', {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
@@ -38,7 +38,7 @@ export const AuthProvider = ({children}) => {
 
     const verifyAuth = async () => {
         setLoading(true)
-        const data = await fetch('https://ff38-194-29-160-174.eu.ngrok.io/verify-auth', {
+        const data = await fetch('localhost:8000/verify-auth', {
             method: 'GET',
             headers: {
                 'Authorization': `Bearer ${currentUser?.access_token}`
