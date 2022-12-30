@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('Test') {
             steps {
-                sh 'npm install'
+                sh 'npm install --legacy-peer-deps'
                 sh 'chmod +x check.sh'
                 sh './check.sh test'
             }
