@@ -4,8 +4,13 @@ pipeline {
     stages {
         stage('Test') {
             steps {
+                sh 'npm install'
                 sh 'chmod +x check.sh'
                 sh './check.sh test'
+            }
+        }
+        stage('SonarQube Analysis') {
+            steps {
                 sh 'sonar-scanner \
                     -Dsonar.projectKey=pis-front \
                     -Dsonar.sources=. \
