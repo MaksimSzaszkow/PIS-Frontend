@@ -6,12 +6,6 @@ pipeline {
             steps {
                 sh 'chmod +x check.sh'
                 sh './check.sh test'
-            }
-        }
-        stage('SonarQube Analysis') {
-            steps {
-                sh 'pwd'
-                sh 'ls -la'
                 sh 'sonar-scanner \
                     -Dsonar.projectKey=pis-front \
                     -Dsonar.sources=. \
