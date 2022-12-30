@@ -1,21 +1,7 @@
-import { createContext, ReactNode, useState } from "react";
+import { useState } from "react";
 import { User } from "./types";
 
-export const AuthContext = createContext<{
-  currentUser: any;
-  data: string;
-  logout: Function;
-  verifyAuth: Function;
-  login: Function;
-}>({
-  currentUser: null,
-  data: "",
-  logout: () => {},
-  verifyAuth: () => {},
-  login: () => {},
-});
-
-export function AuthProvider({ children }: { children: ReactNode }) {
+export function useAuth() {
   const [currentUser, setCurrentUser] = useState<any>(null);
   const [data, setData] = useState("");
 
@@ -28,9 +14,14 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       },
       body: JSON.stringify(user),
     });
-    const data = await response.json();
-    setCurrentUser(data);
-    setData("");
+    if (response.ok) {
+      const data = await response.json();
+      setCurrentUser(data);
+      setData("");
+    } else {
+      setCurrentUser(null);
+      setData("Error during login");
+    }
   };
 
   const logout = () => {
@@ -49,11 +40,5 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     else setData("Unauthorized");
   };
 
-  return (
-    <AuthContext.Provider
-      value={{ currentUser, data, login, logout, verifyAuth }}
-    >
-      {children}
-    </AuthContext.Provider>
-  );
+  return { currentUser, data, login, logout, verifyAuth };
 }
