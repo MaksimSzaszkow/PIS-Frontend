@@ -1,5 +1,5 @@
-import {initializeApp} from "firebase/app"
-import {getAuth} from 'firebase/auth'
+import { initializeApp } from "firebase/app";
+import { getAuth } from "firebase/auth";
 
 const firebaseConfig = {
   apiKey: "AIzaSyCmeCuJMlwUjBBZRRDoMJg1rP-HehPtCiM",
@@ -8,11 +8,11 @@ const firebaseConfig = {
   storageBucket: "pis-projekt-a4a77.appspot.com",
   messagingSenderId: "744819520554",
   appId: "1:744819520554:web:a3a8247247a195827d7f53",
-  measurementId: "G-NY3GH3Q1L6"
+  measurementId: "G-NY3GH3Q1L6",
 };
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
-export const auth = getAuth(app)
+export const auth = getAuth(app);
 
-export default app
+export default app;

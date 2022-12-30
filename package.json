@@ -23,7 +23,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "test:coverage": "CI=true npm test -- --env=jsdom --coverage",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "postinstall": "npx typesync"
   },
   "eslintConfig": {
     "extends": [
@@ -44,6 +45,8 @@
     ]
   },
   "devDependencies": {
+    "@types/testing-library__jest-dom": "^5.14.5",
+    "@types/testing-library__user-event": "^4.2.0",
     "sonarqube-scanner": "^2.8.2"
   },
   "proxy": "http://localhost:8000"

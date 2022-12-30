@@ -1,37 +1,26 @@
-import logo from './logo.svg';
-import './App.css';
-import { useAuth } from './Auth/AuthContext';
+import "./App.css";
+import { useContext } from "react";
+import { AuthContext } from "./hooks/AuthContext";
+import { user } from "./config/test-user";
 
-function App() {  
-  const {currentUser, logout, verifyAuth, login, data} = useAuth();
+function App() {
+  const { currentUser, logout, verifyAuth, login, data } =
+    useContext(AuthContext);
 
   const handleAuth = async () => {
     await verifyAuth();
-  }
+  };
 
   return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.tsx</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Current user: {currentUser?.username}
-          </a>
-          <button onClick={() => login()}>Log in</button>
-          <button onClick={() => logout()}>Log out</button>
-          <button onClick={() => handleAuth()}>Verify auth</button>
-          <p>
-            message from backend: {data}
-          </p>
-        </header>
-      </div>
+    <div className="App">
+      <header className="App-header">
+        Current user: {currentUser?.username}
+        <button onClick={() => login(user)}>Log in</button>
+        <button onClick={() => logout()}>Log out</button>
+        <button onClick={() => handleAuth()}>Verify auth</button>
+        <p>message from backend: {data}</p>
+      </header>
+    </div>
   );
 }
 
