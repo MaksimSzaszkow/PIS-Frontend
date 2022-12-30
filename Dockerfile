@@ -3,7 +3,7 @@ WORKDIR /frontend
 ADD . /frontend
 
 RUN npm install -g serve
-RUN npm install
+RUN npm install --legacy-peer-deps
 RUN npm run build
 
 EXPOSE 3000

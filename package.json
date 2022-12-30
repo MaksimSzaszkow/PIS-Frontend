@@ -54,5 +54,5 @@
     "jest-fetch-mock": "^3.0.3",
     "sonarqube-scanner": "^2.8.2"
   },
-  "proxy": "http://localhost:8000"
+  "proxy": "http://localhost:8080"
 }
