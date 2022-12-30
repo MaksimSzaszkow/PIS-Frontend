@@ -6,7 +6,7 @@ export function useAuth() {
   const [data, setData] = useState("");
 
   const login = async (user: User) => {
-    const response = await fetch("/login", {
+    const response = await fetch("http://localhost:8080/login", {
       method: "POST",
       headers: {
         Accept: "application/json",
@@ -30,7 +30,7 @@ export function useAuth() {
   };
 
   const verifyAuth = async () => {
-    const response = await fetch("/verify-auth", {
+    const response = await fetch("http://localhost:8080/verify-auth", {
       method: "GET",
       headers: {
         Authorization: `Bearer ${currentUser?.access_token}`,

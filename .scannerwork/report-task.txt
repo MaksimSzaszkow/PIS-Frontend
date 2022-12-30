@@ -1,6 +1,6 @@
-projectKey=Test
+projectKey=pis-front
 serverUrl=http://localhost:9000
 serverVersion=9.7.1.62043
-dashboardUrl=http://localhost:9000/dashboard?id=Test
-ceTaskId=AYR7mszgLQZFx7JhcJGR
-ceTaskUrl=http://localhost:9000/api/ce/task?id=AYR7mszgLQZFx7JhcJGR
+dashboardUrl=http://localhost:9000/dashboard?id=pis-front
+ceTaskId=AYVi_h_TVrJ6f0SBsI1f
+ceTaskUrl=http://localhost:9000/api/ce/task?id=AYVi_h_TVrJ6f0SBsI1f
