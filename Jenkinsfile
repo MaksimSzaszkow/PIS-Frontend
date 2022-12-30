@@ -10,6 +10,8 @@ pipeline {
         }
         stage('SonarQube Analysis') {
             steps {
+                sh 'pwd'
+                sh 'ls -la'
                 sh 'sonar-scanner \
                     -Dsonar.projectKey=pis-front \
                     -Dsonar.sources=. \
