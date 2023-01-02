@@ -1,7 +1,7 @@
 import "./App.css";
 import { useContext } from "react";
-import { AuthContext } from "./contexts/AuthContext";
-import { user } from "./config/test-user";
+import { AuthContext } from "../../contexts/AuthContext";
+import { user } from "../../config/test-user";
 
 function App() {
   const { currentUser, logout, verifyAuth, login, data } =
