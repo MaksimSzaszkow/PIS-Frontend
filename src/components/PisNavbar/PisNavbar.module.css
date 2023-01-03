@@ -6,7 +6,7 @@
     column-gap: 12px;
     align-items: center;
     height: 80px;
-    position: fixed;
     width: 100%;
     z-index: 1;
+    margin-bottom: 16px;
 }
