@@ -1,0 +1,12 @@
+.navbar {
+    background-color: #fff;
+    padding: 0 20px;
+    display: flex;
+    justify-content: flex-start;
+    column-gap: 12px;
+    align-items: center;
+    height: 80px;
+    width: 100%;
+    z-index: 1;
+    margin-bottom: 16px;
+}
