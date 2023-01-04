@@ -19,6 +19,7 @@ export function useAuth() {
     if (response.ok) {
       const data = await response.json();
       setCurrentUser(data);
+      localStorage.setItem("currentUser", data.access_token);
       setData("");
     } else {
       setCurrentUser(null);
@@ -35,7 +36,7 @@ export function useAuth() {
     const response = await fetch("http://localhost:8080/verify-auth", {
       method: "GET",
       headers: {
-        Authorization: `Bearer ${currentUser?.access_token}`,
+        Authorization: `Bearer ${localStorage.getItem("currentUser")}`,
       },
     });
     if (response.ok) setData(await response.text());

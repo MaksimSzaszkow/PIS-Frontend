@@ -1,5 +1,7 @@
 export const ROUTES = {
   home: "/",
   login: "/login",
-  admin_panel: "/admin-panel",
+  myReservations: "/my-reservations",
+  allReservations: "/all-reservations",
+  adminPanel: "/admin-panel",
 };
