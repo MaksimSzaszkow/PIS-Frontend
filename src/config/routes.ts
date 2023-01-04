@@ -1,4 +1,5 @@
 export const ROUTES = {
-    home: "/",
-    login: "/login",
-}
+  home: "/",
+  login: "/login",
+  admin_panel: "/admin-panel",
+};
