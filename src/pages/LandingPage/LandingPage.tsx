@@ -9,28 +9,28 @@ import {Datetime, Reservation} from "../../types/Reservation.types";
 import {useReservations} from "../../hooks/useReservations";
 import {Rooms} from "../../types/Rooms.types";
 import PisRoomsTable from "../../components/PisRoomsTable/PisRoomsTable";
+import {DateTime} from 'luxon'
 
 
 function LandingPage(): ReactElement {
-
 
     const {login} = useContext(AuthContext);
     const {checkAvailability, addReservation} = useReservations();
 
     const [availableRooms, setAvailableRooms] = React.useState<Rooms[]>([]);
     const [selectedDatetime, setSelectedDatetime] = React.useState<Datetime>({
-        date: "",
+        date: DateTime.now().toFormat('yyyy-MM-dd'),
         time: "",
     });
 
     const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         const target = e.target as typeof e.target & {
-            date: { value: Date };
+            date: { value: string };
             time: { value: string };
         }
         const datetime: Datetime = {
-            date: "14.03.2023",
+            date: target.date.value,
             time: target.time.value
         }
         setSelectedDatetime(datetime);
@@ -73,7 +73,7 @@ function LandingPage(): ReactElement {
         <MainLayout>
             <form className={s.form} onSubmit={onSubmit}>
                 <label htmlFor="date">Date</label>
-                <input type="date" id="date" name="date"/>
+                <input type="date" id="date" name="date" defaultValue={DateTime.now().toFormat("yyyy-MM-dd")}/>
                 <label htmlFor="time">Time</label>
                 <select name="time" id="time" onChange={onSelectChange}>
                     {WORKING_HOURS.map((hour, index) => (
