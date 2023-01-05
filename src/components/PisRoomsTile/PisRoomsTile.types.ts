@@ -1,5 +1,6 @@
-import { Rooms } from "../../types/Rooms.types";
+import {Rooms} from "../../types/Rooms.types";
 
 export type PisRoomsTileProps = {
-  room: Rooms;
+    room: Rooms;
+    onClick?: (room: Rooms) => void;
 };

@@ -4,6 +4,7 @@ import App from "../pages/App/App";
 import LandingPage from "../pages/LandingPage/LandingPage";
 import UserReservationsPage from "../pages/UserReservationsPage/UserReservationsPage";
 import AllReservationsPage from "../pages/AllReservationsPage/AllReservationsPage";
+import AdminPanel from "../pages/AdminPanel/AdminPanel";
 
 export const router = createBrowserRouter([
     {
@@ -16,14 +17,14 @@ export const router = createBrowserRouter([
     },
     {
         path: ROUTES.myReservations,
-        element: <UserReservationsPage/>
+        element: <UserReservationsPage/>,
     },
     {
         path: ROUTES.allReservations,
-        element: <AllReservationsPage/>
+        element: <AllReservationsPage/>,
     },
     {
         path: ROUTES.adminPanel,
-        element: <LandingPage/>
-    }
+        element: <AdminPanel/>,
+    },
 ])

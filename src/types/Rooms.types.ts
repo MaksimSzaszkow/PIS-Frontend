@@ -1,4 +1,5 @@
 export type Rooms = {
-  size: number;
-  name: string;
+    id: string;
+    size: number;
+    name: string;
 };
