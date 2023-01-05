@@ -5,6 +5,8 @@ export function useAuth() {
   const [currentUser, setCurrentUser] = useState<any>(null);
   const [data, setData] = useState("");
 
+  console.log("useAuth mount");
+
   const login = async (user: User) => {
     const response = await fetch("http://localhost:8080/login", {
       method: "POST",
