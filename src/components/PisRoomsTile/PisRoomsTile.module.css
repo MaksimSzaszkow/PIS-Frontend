@@ -1,4 +1,4 @@
-.reservationTile {
+.roomsTile {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -12,10 +12,10 @@
   color: black;
 }
 
-.reservationTile:hover {
+.roomsTile:hover {
   scale: 0.95;
 }
 
-.reservationTile:active {
+.roomsTile:active {
   scale: 0.9;
 }

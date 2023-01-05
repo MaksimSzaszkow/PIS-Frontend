@@ -1,5 +1,7 @@
-import {Reservation} from "../../types/Reservation.types";
+import { Dispatch, SetStateAction } from "react";
+import { Reservation } from "../../types/Reservation.types";
 
 export type PisReservationTileProps = {
-    reservation: Reservation;
-}
+  reservation: Reservation;
+  setEditReservation: Dispatch<SetStateAction<Reservation | null>>;
+};
