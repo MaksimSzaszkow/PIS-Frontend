@@ -10,7 +10,7 @@ export function useReservations() {
       {
         method: "GET",
         headers: {
-          Authorization: `Bearer ${localStorage.getItem("currentUser")}`,
+          Authorization: `Bearer ${localStorage.getItem("user")}`,
         },
       }
     );
@@ -29,7 +29,7 @@ export function useReservations() {
       {
         method: "GET",
         headers: {
-          Authorization: `Bearer ${localStorage.getItem("currentUser")}`,
+          Authorization: `Bearer ${localStorage.getItem("user")}`,
         },
       }
     );
@@ -48,7 +48,7 @@ export function useReservations() {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem("currentUser")}`,
+          Authorization: `Bearer ${localStorage.getItem("user")}`,
         },
         body: JSON.stringify({
           user: reservation.user,

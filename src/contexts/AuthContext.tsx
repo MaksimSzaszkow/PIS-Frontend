@@ -2,16 +2,12 @@ import { createContext, ReactNode } from "react";
 import { useAuth } from "../hooks/useAuth";
 
 export const AuthContext = createContext<{
-  currentUser: any;
-  data: string;
+  user: any;
   logout: Function;
-  verifyAuth: Function;
   login: Function;
 }>({
-  currentUser: null,
-  data: "",
+  user: null,
   logout: () => {},
-  verifyAuth: () => {},
   login: () => {},
 });
 

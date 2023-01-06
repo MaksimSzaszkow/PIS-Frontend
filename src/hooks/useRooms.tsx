@@ -7,7 +7,7 @@ export function useRooms() {
     const response = await fetch("http://localhost:8080/rooms/all-rooms", {
       method: "GET",
       headers: {
-        Authorization: `Bearer ${localStorage.getItem("currentUser")}`,
+        Authorization: `Bearer ${localStorage.getItem("user")}`,
       },
     });
     if (response.ok) {
@@ -22,7 +22,7 @@ export function useRooms() {
     const response = await fetch("http://localhost:8080/rooms/my-rooms", {
       method: "GET",
       headers: {
-        Authorization: `Bearer ${localStorage.getItem("currentUser")}`,
+        Authorization: `Bearer ${localStorage.getItem("user")}`,
       },
     });
     if (response.ok) {
