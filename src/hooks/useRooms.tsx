@@ -10,6 +10,7 @@ export function useRooms() {
         const response = await fetch("http://localhost:8080/rooms/all-rooms", {
             method: "GET",
             headers: {
+                'Content-Type': 'application/json',
                 Authorization: `Bearer ${localStorage.getItem("currentUser")}`,
             },
         });
@@ -27,6 +28,7 @@ export function useRooms() {
         const response = await fetch("http://localhost:8080/rooms/my-rooms", {
             method: "GET",
             headers: {
+                'Content-Type': 'application/json',
                 Authorization: `Bearer ${localStorage.getItem("currentUser")}`,
             },
         });
@@ -42,7 +44,7 @@ export function useRooms() {
 
     const checkAvailableRooms = async (datetime: Datetime) => {
         const response = await fetch(
-            "http://localhost:8080/reservation/get-available-rooms",
+            "http://localhost:8080/rooms/get-available-rooms",
             {
                 method: "POST",
                 body: JSON.stringify(datetime),
