@@ -19,3 +19,13 @@ input, select {
     font-size: 16px;
     text-align: center;
 }
+
+.error {
+    color: red;
+    font-size: 24px;
+}
+
+.success {
+    color: green;
+    font-size: 24px;
+}
