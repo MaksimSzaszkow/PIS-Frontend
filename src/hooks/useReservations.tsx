@@ -1,5 +1,8 @@
 import {useState} from "react";
-import {Reservation} from "../types/Reservation.types";
+import {
+    Reservation,
+    ReservationEditFormData,
+} from "../types/Reservation.types";
 
 export function useReservations() {
 
@@ -20,7 +23,6 @@ export function useReservations() {
         if (response.ok) {
             setErrorMessage(null);
             const data = await response.json();
-            console.log(data);
             setReservations(data);
         } else {
             setReservations(null);
@@ -57,15 +59,11 @@ export function useReservations() {
                     "Content-Type": "application/json",
                     Authorization: `Bearer ${localStorage.getItem("currentUser")}`,
                 },
-                body: JSON.stringify({
-                    user: reservation.user,
-                    date: reservation.date,
-                    time: reservation.time,
-                    room: reservation.room,
-                }),
+                body: reservation.id,
             }
         );
         if (response.ok) {
+            await getAllReservations();
             setSuccessMessage("Reservation deleted");
             setErrorMessage(null);
         } else {
@@ -74,6 +72,28 @@ export function useReservations() {
         }
     };
 
+    const handleEditReservation = async (
+        reservation: Reservation,
+        editData: ReservationEditFormData
+    ) => {
+        const response = await fetch(
+            "http://localhost:8080/reservation/edit-reservation",
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${localStorage.getItem("currentUser")}`,
+                },
+                body: JSON.stringify({
+                    reservationId: reservation.id,
+                    ...editData,
+                }),
+            }
+        );
+        if (response.ok) {
+            await getAllReservations();
+        }
+    };
 
     const addReservation = async (reservation: Reservation) => {
         const response = await fetch(
@@ -99,6 +119,7 @@ export function useReservations() {
         getAllReservations: getAllReservations,
         getUserReservations: getUserReservations,
         deleteReservation: deleteReservation,
+        handleEditReservation: handleEditReservation,
         addReservation: addReservation,
         reservations: reservations,
         reservationsErrorMessage: errorMessage,

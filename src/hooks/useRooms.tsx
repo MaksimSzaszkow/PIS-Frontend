@@ -1,6 +1,6 @@
 import {useState} from "react";
 import {Datetime} from "../types/Reservation.types";
-import {Rooms} from "../types/Rooms.types";
+import {RoomEditFormData, Rooms} from "../types/Rooms.types";
 
 export function useRooms() {
     const [rooms, setRooms] = useState<Rooms[]>([]);
@@ -63,9 +63,42 @@ export function useRooms() {
         }
     }
 
+    const deleteRoom = async (room: Rooms) => {
+        const response = await fetch("http://localhost:8080/rooms/delete-room", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${localStorage.getItem("currentUser")}`,
+            },
+            body: room.id,
+        });
+        if (response.ok) {
+            await getAllRooms();
+        }
+    };
+
+    const handleEditRoom = async (room: Rooms, editData: RoomEditFormData) => {
+        const response = await fetch("http://localhost:8080/rooms/edit-room", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${localStorage.getItem("currentUser")}`,
+            },
+            body: JSON.stringify({
+                roomId: room.id,
+                ...editData,
+            }),
+        });
+        if (response.ok) {
+            await getAllRooms();
+        }
+    };
+
     return {
         getAllRooms: getAllRooms,
         getUserRooms: getUserRooms,
+        deleteRoom: deleteRoom,
+        handleEditRoom: handleEditRoom,
         checkAvailableRooms: checkAvailableRooms,
         rooms: rooms,
         roomsErrorMessage: errorMessage
