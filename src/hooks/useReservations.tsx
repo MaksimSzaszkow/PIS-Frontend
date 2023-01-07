@@ -1,7 +1,6 @@
 import {useState} from "react";
 import {
-    Reservation,
-    ReservationEditFormData,
+    ReservationEditFormData, Reservation,
 } from "../types/Reservation.types";
 
 export function useReservations() {
