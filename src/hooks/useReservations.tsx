@@ -1,13 +1,15 @@
-import {useState} from "react";
+import {useContext, useState} from "react";
 import {
-    ReservationEditFormData, Reservation,
+    ReservationEditFormData,
+    Reservation,
 } from "../types/Reservation.types";
+import {ApiContext} from "../contexts/ApiContext";
 
 export function useReservations() {
 
+    const {setErrorMessage, setSuccessMessage} = useContext(ApiContext)
+
     const [reservations, setReservations] = useState<any>([]);
-    const [errorMessage, setErrorMessage] = useState<string | null>(null);
-    const [successMessage, setSuccessMessage] = useState<string | null>(null);
 
     const getAllReservations = async () => {
         const response = await fetch(
@@ -121,7 +123,5 @@ export function useReservations() {
         handleEditReservation: handleEditReservation,
         addReservation: addReservation,
         reservations: reservations,
-        reservationsErrorMessage: errorMessage,
-        reservationsSuccessMessage: successMessage,
     };
 }

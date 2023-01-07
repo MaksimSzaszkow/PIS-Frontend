@@ -10,18 +10,20 @@ import {Rooms} from "../../types/Rooms.types";
 import PisRoomsTable from "../../components/PisRoomsTable/PisRoomsTable";
 import {DateTime} from 'luxon'
 import {useRooms} from "../../hooks/useRooms";
+import {ApiContext} from "../../contexts/ApiContext";
 
 
 function LandingPage(): ReactElement {
 
     const {login} = useContext(AuthContext);
-    const {addReservation, reservationsSuccessMessage, reservationsErrorMessage} = useReservations();
-    const {rooms, roomsErrorMessage, checkAvailableRooms} = useRooms();
+    const {successMessage, errorMessage, loading} = useContext(ApiContext);
+    const {addReservation} = useReservations();
+    const {rooms, checkAvailableRooms} = useRooms();
 
     const currentDate = useMemo(() => DateTime.now().toFormat('yyyy-MM-dd'), []);
     const messages = useMemo(() => {
-        return [reservationsSuccessMessage, reservationsErrorMessage, roomsErrorMessage]
-    }, [reservationsSuccessMessage, reservationsErrorMessage, roomsErrorMessage]);
+        return [successMessage, errorMessage]
+    }, [successMessage, errorMessage]);
     const [selectedDatetime, setSelectedDatetime] = React.useState<Datetime>({
         date: DateTime.now().toFormat('yyyy-MM-dd'),
         time: "9",
@@ -57,7 +59,6 @@ function LandingPage(): ReactElement {
             room: room.name,
         }
         await addReservation(reservation);
-        await checkAvailableRooms(selectedDatetime);
     }
 
     useEffect(() => {
@@ -84,17 +85,15 @@ function LandingPage(): ReactElement {
                     ))}
                 </select>
             </form>
-            {rooms.length > 0 && messages.every(message => message === null) && (
+            {loading && <p>Loading...</p>}
+            {!loading && rooms.length > 0 && messages.every(message => message === null) && (
                 <PisRoomsTable rooms={rooms} onElementClick={onRoomClick}/>
             )}
-            {roomsErrorMessage !== null &&
-                <div className={s.error}>{roomsErrorMessage}</div>
-            }
-            {reservationsErrorMessage !== null && (
-                <div className={s.error}>{reservationsErrorMessage}</div>
+            {errorMessage !== null && (
+                <div className={s.error}>{errorMessage}</div>
             )}
-            {reservationsSuccessMessage !== null && (
-                <div className={s.success}>{reservationsSuccessMessage}</div>
+            {successMessage !== null && (
+                <div className={s.success}>{successMessage}</div>
             )}
 
         </MainLayout>

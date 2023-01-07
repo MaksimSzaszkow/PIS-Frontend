@@ -1,10 +1,11 @@
-import {useState} from "react";
+import {useContext, useState} from "react";
 import {Datetime} from "../types/Reservation.types";
 import {RoomEditFormData, Rooms} from "../types/Rooms.types";
+import {ApiContext} from "../contexts/ApiContext";
 
 export function useRooms() {
+    const {setSuccessMessage, setErrorMessage, setLoading} = useContext(ApiContext);
     const [rooms, setRooms] = useState<Rooms[]>([]);
-    const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
     const getAllRooms = async () => {
         const response = await fetch("http://localhost:8080/rooms/all-rooms", {
@@ -43,6 +44,8 @@ export function useRooms() {
     };
 
     const checkAvailableRooms = async (datetime: Datetime) => {
+        setLoading(true);
+        setSuccessMessage(null);
         const response = await fetch(
             "http://localhost:8080/rooms/get-available-rooms",
             {
@@ -61,6 +64,7 @@ export function useRooms() {
             setErrorMessage(await response.text());
             setRooms([]);
         }
+        setLoading(false);
     }
 
     const deleteRoom = async (room: Rooms) => {
@@ -101,6 +105,5 @@ export function useRooms() {
         handleEditRoom: handleEditRoom,
         checkAvailableRooms: checkAvailableRooms,
         rooms: rooms,
-        roomsErrorMessage: errorMessage
     };
 }

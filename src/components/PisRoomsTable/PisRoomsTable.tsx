@@ -89,7 +89,8 @@ function PisRoomsTable({rooms, onElementClick}: PisRoomsTableProps) {
             </div>
             {rooms &&
                 rooms.map((room: Rooms) => (
-                    <PisRoomsTile key={room.id} room={room} setEditRoom={setEditRoom} onClick={onElementClick}/>
+                    <PisRoomsTile key={room.id} room={room} setEditRoom={setEditRoom}
+                                  onClick={onElementClick}/>
                 ))}
         </div>
     );

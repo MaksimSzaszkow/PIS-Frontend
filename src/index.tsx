@@ -2,9 +2,10 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
 import reportWebVitals from "./reportWebVitals";
-import { AuthProvider } from "./contexts/AuthContext";
-import { RouterProvider } from "react-router-dom";
-import { router } from "./utils/Router";
+import {AuthProvider} from "./contexts/AuthContext";
+import {RouterProvider} from "react-router-dom";
+import {router} from "./utils/Router";
+import {ApiProvider} from "./contexts/ApiContext";
 
 const root = ReactDOM.createRoot(
     document.getElementById("root") as HTMLElement
@@ -12,7 +13,9 @@ const root = ReactDOM.createRoot(
 root.render(
     <React.StrictMode>
         <AuthProvider>
-            <RouterProvider router={router}/>
+            <ApiProvider>
+                <RouterProvider router={router}/>
+            </ApiProvider>
         </AuthProvider>
     </React.StrictMode>
 );

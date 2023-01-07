@@ -3,7 +3,7 @@ import s from "./PisRoomsTile.module.css";
 
 function PisRoomsTile({room, setEditRoom, onClick}: PisRoomsTileProps) {
     return (
-        <div className={s.roomsTile} onClick={() => !!onClick ? onClick : setEditRoom(room)}>
+        <div className={s.roomsTile} onClick={() => !!onClick ? onClick(room) : setEditRoom(room)}>
             <p>{room.name}</p>
             <p>{room.size}</p>
         </div>
