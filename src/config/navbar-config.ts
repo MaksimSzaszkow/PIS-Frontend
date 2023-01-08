@@ -6,7 +6,7 @@ type navItem = {
     onClick?: () => void,
     isForAdmin?: boolean,
 }
-export const NAVBAR_CONFIG: navItem[]= [
+export const NAVBAR_CONFIG: navItem[] = [
     {
         route: ROUTES.home,
         text: "Home"
@@ -18,6 +18,11 @@ export const NAVBAR_CONFIG: navItem[]= [
     {
         route: ROUTES.allReservations,
         text: "All Reservations"
+    },
+    {
+        route: ROUTES.addReservation,
+        text: "Add Reservation",
+        isForAdmin: true
     },
     {
         route: ROUTES.adminPanel,

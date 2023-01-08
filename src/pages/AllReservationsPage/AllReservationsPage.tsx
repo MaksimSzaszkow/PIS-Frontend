@@ -1,10 +1,10 @@
-import React, { ReactElement, useContext, useEffect } from "react";
+import React, {ReactElement, useEffect} from "react";
 import MainLayout from "../../layouts/MainLayout/MainLayout";
-import { useReservations } from "../../hooks/useReservations";
+import {useReservations} from "../../hooks/useReservations";
 import PisReservationsTable from "../../components/PisReservationsTable/PisReservationsTable";
 
 function AllReservationsPage(): ReactElement {
-  const { getAllReservations, reservations } = useReservations();
+  const {getAllReservations, reservations} = useReservations();
 
   useEffect(() => {
     getAllReservations();
@@ -12,7 +12,7 @@ function AllReservationsPage(): ReactElement {
 
   return (
     <MainLayout>
-      <PisReservationsTable reservations={reservations} />
+      <PisReservationsTable reservations={reservations}/>
     </MainLayout>
   );
 }
