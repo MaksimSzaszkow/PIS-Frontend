@@ -20,11 +20,7 @@ describe("Authorization", () => {
     );
 
     await act(
-      async () =>
-        await result.current.login({
-          username: "sherlock",
-          password: "password",
-        })
+      async () => await result.current.login("test@user.com", "password123")
     );
 
     expect(result.current.user).toEqual({

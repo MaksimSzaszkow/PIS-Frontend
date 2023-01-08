@@ -1,14 +1,13 @@
 import { createContext, ReactNode } from "react";
-import { useAuth } from "../hooks/useAuth";
+import { defaultUser, useAuth } from "../hooks/useAuth";
 
-export const AuthContext = createContext<{
-  user: any;
-  logout: Function;
-  login: Function;
-}>({
-  user: null,
-  logout: () => {},
-  login: () => {},
+export const AuthContext = createContext<ReturnType<typeof useAuth>>({
+  user: defaultUser,
+  loading: true,
+  token: "",
+  logout: async () => {},
+  login: async (email, password) => {},
+  register: async (email, password) => {},
 });
 
 export function AuthProvider({ children }: { children: ReactNode }) {

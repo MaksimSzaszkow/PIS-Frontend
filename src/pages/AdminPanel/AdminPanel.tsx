@@ -16,7 +16,6 @@ const AdminPanel = () => {
   const { getAllRooms, rooms } = useRooms();
 
   useEffect(() => {
-    login(user);
     getAllReservations();
     getAllRooms();
   }, []);

@@ -1,19 +1,18 @@
 import "./App.css";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { AuthContext } from "../../contexts/AuthContext";
+import { RouterProvider } from "react-router-dom";
+import { router, authorizedRouter } from "../../utils/Router";
+import PisSpinner from "../../components/PisSpinner/PisSpinner";
 
 function App() {
-  const { user, logout, login } = useContext(AuthContext);
+  const { user, loading } = useContext(AuthContext);
 
-  return (
-    <div className="App">
-      <header className="App-header">
-        Current user: {user?.username}
-        <button onClick={() => login(user)}>Log in</button>
-        <button onClick={() => logout()}>Log out</button>
-      </header>
-    </div>
-  );
+  if (loading) return <PisSpinner />;
+
+  if (!user.authorized) return <RouterProvider router={router} />;
+
+  return <RouterProvider router={authorizedRouter} />;
 }
 
 export default App;
