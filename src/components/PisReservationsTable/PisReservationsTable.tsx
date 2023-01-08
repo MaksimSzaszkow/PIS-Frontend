@@ -10,24 +10,40 @@ function PisReservationsTable({ reservations }: PisReservationsTableProps) {
     null
   );
 
-  const { deleteReservation } = useReservations();
+  const { deleteReservation, handleEditReservation } = useReservations();
 
   const ReservationEditPanel = () => {
     const [editDate, setEditDate] = useState<
       string | number | readonly string[] | undefined
-    >("");
+    >(editReservation?.date);
 
     const [editTime, setEditTime] = useState<
       string | number | readonly string[] | undefined
-    >("");
+    >(editReservation?.time);
 
     const [editUser, setEditUser] = useState<
       string | number | readonly string[] | undefined
-    >("");
+    >(editReservation?.user);
 
     const handleDelete = async () => {
       if (editReservation) {
-        await deleteReservation(editReservation);
+        deleteReservation(editReservation).then(() => {
+          setEditReservation(null);
+          window.location.reload();
+        });
+      }
+    };
+
+    const handleEdit = async () => {
+      if (editReservation && editDate && editTime && editUser) {
+        handleEditReservation(editReservation, {
+          editDate,
+          editTime,
+          editUser,
+        }).then(() => {
+          setEditReservation(null);
+          window.location.reload();
+        });
       }
     };
 
@@ -39,9 +55,10 @@ function PisReservationsTable({ reservations }: PisReservationsTableProps) {
         >
           X
         </button>
-        <h1 className={s.editPannelHeader}>
-          Edit room: {editReservation?.room}
-        </h1>
+        <h1 className={s.editPannelHeader}>Edit reservation:</h1>
+        <h2 className={s.editPannelHeader}>
+          {editReservation?.room} - {editReservation?.user}
+        </h2>
         <div className={s.editPannelMain}>
           <div className={s.editPannelField}>
             <h2>Date:</h2>
@@ -57,6 +74,8 @@ function PisReservationsTable({ reservations }: PisReservationsTableProps) {
             <h4>{editReservation?.time}</h4>
             <input
               type="number"
+              min="9"
+              max="17"
               value={editTime}
               onChange={(e) => setEditTime(e.target.value)}
             ></input>
@@ -72,7 +91,9 @@ function PisReservationsTable({ reservations }: PisReservationsTableProps) {
           </div>
         </div>
         <div className={s.editPannelActions}>
-          <button className={s.editPannelAction}>Edit</button>
+          <button className={s.editPannelAction} onClick={() => handleEdit()}>
+            Edit
+          </button>
           <button className={s.editPannelAction} onClick={() => handleDelete()}>
             Delete
           </button>
@@ -91,9 +112,9 @@ function PisReservationsTable({ reservations }: PisReservationsTableProps) {
         <p>User:</p>
       </div>
       {reservations &&
-        reservations.map((reservation: Reservation, i: number) => (
+        reservations.map((reservation: Reservation) => (
           <PisReservationTile
-            key={i}
+            key={reservation.id}
             reservation={reservation}
             setEditReservation={setEditReservation}
           />

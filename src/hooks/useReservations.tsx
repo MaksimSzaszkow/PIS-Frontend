@@ -1,5 +1,8 @@
 import { useState } from "react";
-import { Reservation } from "../types/Reservation.types";
+import {
+  Reservation,
+  ReservationEditFormData,
+} from "../types/Reservation.types";
 
 export function useReservations() {
   const [reservations, setReservations] = useState<any>([]);
@@ -16,7 +19,6 @@ export function useReservations() {
     );
     if (response.ok) {
       const data = await response.json();
-      console.log(data);
       setReservations(data);
     } else {
       setReservations(null);
@@ -50,20 +52,42 @@ export function useReservations() {
           "Content-Type": "application/json",
           Authorization: `Bearer ${localStorage.getItem("user")}`,
         },
+        body: reservation.id,
+      }
+    );
+    if (response.ok) {
+      await getAllReservations();
+    }
+  };
+
+  const handleEditReservation = async (
+    reservation: Reservation,
+    editData: ReservationEditFormData
+  ) => {
+    const response = await fetch(
+      "http://localhost:8080/reservation/edit-reservation",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("currentUser")}`,
+        },
         body: JSON.stringify({
-          user: reservation.user,
-          date: reservation.date,
-          time: reservation.time,
-          room: reservation.room,
+          reservationId: reservation.id,
+          ...editData,
         }),
       }
     );
+    if (response.ok) {
+      await getAllReservations();
+    }
   };
 
   return {
     getAllReservations: getAllReservations,
     getUserReservations: getUserReservations,
     deleteReservation: deleteReservation,
+    handleEditReservation: handleEditReservation,
     reservations: reservations,
   };
 }
