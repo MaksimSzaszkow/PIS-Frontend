@@ -1,47 +1,80 @@
-import { useState } from "react";
-import { User } from "./types";
+import { useEffect, useState } from "react";
+import {
+  getAuth,
+  signInWithEmailAndPassword,
+  createUserWithEmailAndPassword,
+  signOut,
+  onAuthStateChanged,
+} from "firebase/auth";
+import app from "../config/firebase-config";
+import User from "../types/User";
+
+export const defaultUser = {
+  email: "",
+  role: "",
+  authorized: false,
+};
 
 export function useAuth() {
-  const [currentUser, setCurrentUser] = useState<any>(null);
-  const [data, setData] = useState("");
+  const [user, setUser] = useState<User>(defaultUser);
+  const [token, setToken] = useState("");
+  const [loading, setLoading] = useState(true);
 
-  console.log("useAuth mount");
+  useEffect(() => {
+    return onAuthStateChanged(getAuth(app), async (user) => {
+      setLoading(false);
+      if (user) {
+        setUser({
+          email: user.email || "",
+          role: (await user.getIdTokenResult()).claims.role,
+          authorized: true,
+        });
+        const firebaseToken = await user.getIdToken();
+        const res = await fetch("http://localhost:8080/firebase/auth", {
+          method: "POST",
+          headers: {
+            Authorization: "Bearer " + firebaseToken,
+          },
+        });
 
-  const login = async (user: User) => {
-    const response = await fetch("http://localhost:8080/login", {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(user),
+        if (res.ok) {
+          const { token } = await res.json();
+
+          setToken(token);
+        } else {
+          console.log("Login error");
+          await logout();
+        }
+      } else setUser(defaultUser);
     });
-    if (response.ok) {
-      const data = await response.json();
-      setCurrentUser(data);
-      localStorage.setItem("currentUser", data.access_token);
-      setData("");
-    } else {
-      setCurrentUser(null);
-      setData("Error during login");
+  }, []);
+
+  const login = async (email: string, password: string) => {
+    setLoading(true);
+    try {
+      await signInWithEmailAndPassword(getAuth(app), email, password);
+    } catch (err) {
+      console.log("Login error");
     }
   };
 
-  const logout = () => {
-    setCurrentUser(null);
-    setData("");
+  const register = async (email: string, password: string) => {
+    setLoading(true);
+    try {
+      await createUserWithEmailAndPassword(getAuth(app), email, password);
+    } catch (err) {
+      console.log("Register error");
+    }
   };
 
-  const verifyAuth = async () => {
-    const response = await fetch("http://localhost:8080/verify-auth", {
-      method: "GET",
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem("currentUser")}`,
-      },
-    });
-    if (response.ok) setData(await response.text());
-    else setData("Unauthorized");
+  const logout = async () => {
+    setLoading(true);
+    try {
+      await signOut(getAuth(app));
+    } catch (err) {
+      console.log("Logout error");
+    }
   };
 
-  return { currentUser, data, login, logout, verifyAuth };
+  return { user, loading, token, login, register, logout };
 }
