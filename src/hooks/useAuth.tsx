@@ -36,7 +36,6 @@ export function useAuth() {
             Authorization: "Bearer " + firebaseToken,
           },
         });
-
         if (res.ok) {
           const { token } = await res.json();
 

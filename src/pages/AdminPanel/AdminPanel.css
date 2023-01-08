@@ -19,3 +19,17 @@
   box-sizing: border-box;
   padding: 10px;
 }
+
+.management_addroom {
+  display: flex;
+  align-items: center;
+  justify-self: center;
+  flex-direction: column;
+  width: 100%;
+  gap: 5px;
+  box-sizing: border-box;
+  padding: 5px;
+  border-radius: 5px;
+  color: black;
+  background-color: white;
+}
