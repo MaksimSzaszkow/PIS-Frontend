@@ -11,6 +11,7 @@ import PisRoomsTable from "../../components/PisRoomsTable/PisRoomsTable";
 import {DateTime} from 'luxon'
 import {useRooms} from "../../hooks/useRooms";
 import {ApiContext} from "../../contexts/ApiContext";
+import {useAuth} from "../../hooks/useAuth";
 
 
 function AddReservationPage(): ReactElement {
@@ -19,6 +20,7 @@ function AddReservationPage(): ReactElement {
   const {successMessage, errorMessage, loading} = useContext(ApiContext);
   const {addReservation} = useReservations();
   const {rooms, checkAvailableRooms} = useRooms();
+  const {user} = useAuth();
 
   const currentDate = useMemo(() => DateTime.now().toFormat('yyyy-MM-dd'), []);
   const messages = useMemo(() => {
@@ -53,7 +55,7 @@ function AddReservationPage(): ReactElement {
 
   const onRoomClick = async (room: Rooms) => {
     const reservation: Reservation = {
-      user: "mboruwa",
+      user: user.email,
       date: selectedDatetime.date,
       time: selectedDatetime.time,
       room: room.name,
