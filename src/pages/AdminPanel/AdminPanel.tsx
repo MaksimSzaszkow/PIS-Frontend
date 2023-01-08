@@ -29,7 +29,6 @@ const AdminPanel = () => {
       <div className="management_main">
         <div className="management">
           <h1>Manage rooms</h1>
-          <PisRoomsTable rooms={rooms} />
           <div className="management_addroom">
             <h1>Add room</h1>
             <input
@@ -48,6 +47,7 @@ const AdminPanel = () => {
             ></input>
             <button onClick={() => handleAddRoom()}>Add Room</button>
           </div>
+          <PisRoomsTable rooms={rooms} />
         </div>
         <div className="management">
           <h1>Manage reservations</h1>

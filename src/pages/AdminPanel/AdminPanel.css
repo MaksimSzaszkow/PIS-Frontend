@@ -25,6 +25,7 @@
   align-items: center;
   justify-self: center;
   flex-direction: column;
+  margin-top: 20px;
   width: 100%;
   gap: 5px;
   box-sizing: border-box;
