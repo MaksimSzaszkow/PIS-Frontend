@@ -1,19 +1,21 @@
-import {createBrowserRouter} from "react-router-dom";
+import {createBrowserRouter, Navigate} from "react-router-dom";
 import {ROUTES} from "../config/routes";
-import App from "../pages/App/App";
-import AddReservationPage from "../pages/AddReservationPage/AddReservationPage";
+import LandingPage from "../pages/LandingPage/LandingPage";
 import UserReservationsPage from "../pages/UserReservationsPage/UserReservationsPage";
 import AllReservationsPage from "../pages/AllReservationsPage/AllReservationsPage";
 import AdminPanel from "../pages/AdminPanel/AdminPanel";
+import Home from "../pages/Home/Home";
+import AddReservationPage from "../pages/AddReservationPage/AddReservationPage";
 
 export const router = createBrowserRouter([
+    {path: ROUTES.home, element: <LandingPage/>},
+    {path: "*", element: <Navigate to={ROUTES.home}/>},
+]);
+
+export const authorizedRouter = createBrowserRouter([
     {
         path: ROUTES.home,
-        element: <AddReservationPage/>,
-    },
-    {
-        path: ROUTES.login,
-        element: <App/>,
+        element: <Home/>,
     },
     {
         path: ROUTES.myReservations,
@@ -30,5 +32,9 @@ export const router = createBrowserRouter([
     {
         path: ROUTES.addReservation,
         element: <AddReservationPage/>,
-    }
+    },
+    {
+        path: "*",
+        element: <Navigate to={ROUTES.home}/>,
+    },
 ]);

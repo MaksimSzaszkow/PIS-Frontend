@@ -3,18 +3,18 @@ import ReactDOM from "react-dom/client";
 import "./index.css";
 import reportWebVitals from "./reportWebVitals";
 import {AuthProvider} from "./contexts/AuthContext";
-import {RouterProvider} from "react-router-dom";
-import {router} from "./utils/Router";
 import {ApiProvider} from "./contexts/ApiContext";
+import App from "./pages/App/App";
 
 const root = ReactDOM.createRoot(
     document.getElementById("root") as HTMLElement
 );
+
 root.render(
     <React.StrictMode>
         <AuthProvider>
             <ApiProvider>
-                <RouterProvider router={router}/>
+                <App/>
             </ApiProvider>
         </AuthProvider>
     </React.StrictMode>
