@@ -1,18 +1,18 @@
 import "./App.css";
-import { useContext, useEffect } from "react";
-import { AuthContext } from "../../contexts/AuthContext";
-import { RouterProvider } from "react-router-dom";
-import { router, authorizedRouter } from "../../utils/Router";
+import {useContext, useEffect} from "react";
+import {AuthContext} from "../../contexts/AuthContext";
+import {RouterProvider} from "react-router-dom";
+import {router, authorizedRouter} from "../../utils/Router";
 import PisSpinner from "../../components/PisSpinner/PisSpinner";
 
 function App() {
-  const { user, loading } = useContext(AuthContext);
+  const {user, loading, token} = useContext(AuthContext);
 
-  if (loading) return <PisSpinner />;
+  if (loading || token.length === 0) return <PisSpinner/>;
 
-  if (!user.authorized) return <RouterProvider router={router} />;
+  if (!user.authorized) return <RouterProvider router={router}/>;
 
-  return <RouterProvider router={authorizedRouter} />;
+  return <RouterProvider router={authorizedRouter}/>;
 }
 
 export default App;
