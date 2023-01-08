@@ -1,6 +1,4 @@
-import React, { useContext, useEffect } from "react";
-import { AuthContext } from "../../contexts/AuthContext";
-import { user } from "../../config/test-user";
+import React, { useEffect, useState } from "react";
 
 import MainLayout from "../../layouts/MainLayout/MainLayout";
 import { useReservations } from "../../hooks/useReservations";
@@ -10,21 +8,45 @@ import PisReservationsTable from "../../components/PisReservationsTable/PisReser
 import PisRoomsTable from "../../components/PisRoomsTable/PisRoomsTable";
 
 const AdminPanel = () => {
-  const { login } = useContext(AuthContext);
-
+  const [name, setName] = useState<string>("");
+  const [size, setSize] = useState<number>(1);
   const { getAllReservations, reservations } = useReservations();
-  const { getAllRooms, rooms } = useRooms();
+  const { getAllRooms, rooms, addRoom } = useRooms();
 
   useEffect(() => {
     getAllReservations();
     getAllRooms();
   }, []);
 
+  const handleAddRoom = () => {
+    if (name && size > 0) {
+      addRoom(name, size);
+    }
+  };
+
   return (
     <MainLayout>
       <div className="management_main">
         <div className="management">
           <h1>Manage rooms</h1>
+          <div className="management_addroom">
+            <h1>Add room</h1>
+            <input
+              type="text"
+              value={name}
+              placeholder="Name"
+              onChange={(e) => setName(e.target.value)}
+            ></input>
+            <input
+              type="number"
+              min="1"
+              max="99"
+              value={size}
+              placeholder="Size"
+              onChange={(e) => setSize(Number(e.target.value))}
+            ></input>
+            <button onClick={() => handleAddRoom()}>Add Room</button>
+          </div>
           <PisRoomsTable rooms={rooms} />
         </div>
         <div className="management">
