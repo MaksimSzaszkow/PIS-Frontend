@@ -1,6 +1,6 @@
 import React, {ReactElement, useContext, useEffect, useMemo} from "react";
 import MainLayout from "../../layouts/MainLayout/MainLayout";
-import s from "./LandingPage.module.css";
+import s from "./AddReservationPage.module.css";
 import {WORKING_HOURS} from "../../config/datetime-config";
 import {user} from "../../config/test-user";
 import {AuthContext} from "../../contexts/AuthContext";
@@ -13,7 +13,7 @@ import {useRooms} from "../../hooks/useRooms";
 import {ApiContext} from "../../contexts/ApiContext";
 
 
-function LandingPage(): ReactElement {
+function AddReservationPage(): ReactElement {
 
     const {login} = useContext(AuthContext);
     const {successMessage, errorMessage, loading} = useContext(ApiContext);
@@ -100,4 +100,4 @@ function LandingPage(): ReactElement {
     );
 }
 
-export default LandingPage;
+export default AddReservationPage;
