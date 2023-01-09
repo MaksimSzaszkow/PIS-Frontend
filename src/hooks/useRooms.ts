@@ -97,7 +97,6 @@ export function useRooms() {
         size,
       }),
     });
-    console.log(response.ok);
     if (response.ok) {
       await getAllRooms();
     }
