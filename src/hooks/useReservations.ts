@@ -10,7 +10,7 @@ export function useReservations() {
   const { setErrorMessage, setSuccessMessage } = useContext(ApiContext);
   const { token } = useContext(AuthContext);
 
-  const [reservations, setReservations] = useState<any>([]);
+  const [reservations, setReservations] = useState<Reservation[]>([]);
 
   const getAllReservations = async () => {
     const response = await fetch(
@@ -27,7 +27,7 @@ export function useReservations() {
       const data = await response.json();
       setReservations(data);
     } else {
-      setReservations(null);
+      setReservations([]);
       setErrorMessage("Error fetching reservations");
     }
   };
@@ -48,7 +48,7 @@ export function useReservations() {
       setReservations(data);
     } else {
       setErrorMessage("Error fetching reservations");
-      setReservations(null);
+      setReservations([]);
     }
   };
 
