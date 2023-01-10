@@ -1,6 +1,6 @@
-import {Teams} from "../../types/Teams.types";
+import {Rooms} from "../../types/Rooms.types";
 
-export type PisTeamsTableProps = {
-    teams: Teams[];
-    onElementClick?: (team: Teams) => void;
+export type PisRoomsTableProps = {
+    rooms: Rooms[];
+    onElementClick?: (room: Rooms) => void;
 };
