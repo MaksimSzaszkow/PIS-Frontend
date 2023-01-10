@@ -1,12 +1,11 @@
 import { useContext, useState } from "react";
-import { Datetime } from "../types/Reservation.types";
 import { TeamEditFormData, Teams } from "../types/Teams.types";
 import { ApiContext } from "../contexts/ApiContext";
 import { AuthContext } from "../contexts/AuthContext";
 
 export function useTeams() {
   const [teams, setTeams] = useState<Teams[]>([]);
-  const { setSuccessMessage, setErrorMessage, setLoading } =
+  const { setErrorMessage } =
     useContext(ApiContext);
   const { token } = useContext(AuthContext);
 
@@ -28,7 +27,7 @@ export function useTeams() {
     }
   };
 
-  const getUserRooms = async () => {
+  const getUserTeams = async () => {
     const response = await fetch("http://localhost:8080/teams/my-teams", {
       method: "GET",
       headers: {
@@ -46,39 +45,14 @@ export function useTeams() {
     }
   };
 
-  const checkAvailableTeams = async (datetime: Datetime) => {
-    setLoading(true);
-    setSuccessMessage(null);
-    const response = await fetch(
-      "http://localhost:8080/teams/get-available-teams",
-      {
-        method: "POST",
-        body: JSON.stringify(datetime),
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
-    if (response.ok) {
-      const data = await response.json();
-      setTeams(data);
-      setErrorMessage(null);
-    } else {
-      setErrorMessage(await response.text());
-      setTeams([]);
-    }
-    setLoading(false);
-  };
-
-  const deleteRoom = async (room: Teams) => {
+  const deleteTeam = async (team: Teams) => {
     const response = await fetch("http://localhost:8080/teams/delete-team", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       },
-      body: room.id,
+      body: team.id,
     });
     if (response.ok) {
       await getAllTeams();
@@ -103,7 +77,7 @@ export function useTeams() {
     }
   };
 
-  const handleEditTeam = async (room: Teams, editData: TeamEditFormData) => {
+  const handleEditTeam = async (team: Teams, editData: TeamEditFormData) => {
     const response = await fetch("http://localhost:8080/teams/edit-team", {
       method: "POST",
       headers: {
@@ -125,7 +99,6 @@ export function useTeams() {
     getUserTeams: getUserTeams,
     deleteTeam: deleteTeam,
     handleEditTeam: handleEditTeam,
-    checkAvailableTeams: checkAvailableTeams,
     addTeam: addTeam,
     teams: teams,
   };

@@ -1,11 +1,13 @@
 export type Teams = {
     id: string;
-    size: number;
     name: string;
+    teamLeader: string;
+    teamMembers: string[];
   };
   
   export type TeamEditFormData = {
-    editName: string | number | readonly string[] | undefined;
-    editSize: string | number | readonly string[] | undefined;
+    editName: string | string | string | string[] | readonly string[] | undefined;
+    editTeamLeader: string | string | string | string[] | readonly string[] | undefined;
+    editTeamMembers: string | string | string | string[] | readonly string[] | undefined;
   };
   
