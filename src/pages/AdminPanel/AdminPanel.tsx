@@ -70,16 +70,12 @@ const AdminPanel = () => {
               onChange={(e) => setName(e.target.value)}
             ></input>
             <input
-              type="text"
-              value={teamLeader}
-              placeholder="Team Leader"
-              onChange={(e) => setTeamLeader(e.target.value)}
-            ></input>
-            <input
-              type="text"
-              value={teamMembers}
-              placeholder="Team Mmebers"
-              onChange={(e) => setTeamMembers(e.target.value)}
+              type="number"
+              min="1"
+              max="99"
+              value={size}
+              placeholder="Size"
+              onChange={(e) => setSize(Number(e.target.value))}
             ></input>
             <button onClick={() => handleAddTeam()}>Add Team</button>
           </div>

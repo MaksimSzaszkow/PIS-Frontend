@@ -1,27 +1,23 @@
-import { PisTeamsTableProps } from "./PisTeamsTable.types";
+import {PisTeamsTableProps} from "./PisTeamsTable.types";
 import s from "./PisTeamsTable.module.css";
-import { Teams } from "../../types/Teams.types";
+import {Teams} from "../../types/Teams.types";
 import PisTeamsTile from "../PisTeamsTile/PisTeamsTile";
-import React, { useState } from "react";
-import { useTeams } from "../../hooks/useTeams";
+import React, {useState} from "react";
+import {useTeams} from "../../hooks/useTeams";
 
-function PisTeamsTable({ teams, onElementClick }: PisTeamsTableProps) {
+function PisTeamsTable({teams, onElementClick}: PisTeamsTableProps) {
     const [editTeam, setEditTeam] = useState<Teams | null>();
 
-    const { deleteTeam, handleEditTeam } = useTeams();
+    const {deleteTeam, handleEditTeam} = useTeams();
 
     const TeamEditPanel = () => {
         const [editName, setEditName] = useState<
-            string | string | string | string[] | readonly string[] | undefined
+            string | number | readonly string[] | undefined
         >(editTeam?.name);
 
-        const [editTeamLeader, setEditTeamLeader] = useState<
-            string | string | string | string[] | readonly string[] | undefined
-        >(editTeam?.teamLeader);
-
-        const [editTeamMembers, setEditTeamMembers] = useState<
-            string | string | string | string[] | readonly string[] | undefined
-        >(editTeam?.teamMembers);
+        const [editSize, setEditSize] = useState<
+            string | number | readonly string[] | undefined
+        >(editTeam?.size);
 
         const handleDelete = async () => {
             if (editTeam) {
@@ -33,11 +29,10 @@ function PisTeamsTable({ teams, onElementClick }: PisTeamsTableProps) {
         };
 
         const handleEdit = async () => {
-            if (editTeam && editName && editTeamLeader && editTeamMembers) {
+            if (editTeam && editName && editSize) {
                 handleEditTeam(editTeam, {
                     editName,
-                    editTeamLeader,
-                    editTeamMembers
+                    editSize,
                 }).then(() => {
                     setEditTeam(null);
                     window.location.reload();
@@ -62,21 +57,14 @@ function PisTeamsTable({ teams, onElementClick }: PisTeamsTableProps) {
                         ></input>
                     </div>
                     <div className={s.editPannelField}>
-                        <h2>Team Leader:</h2>
-                        <h4>{editTeam?.teamLeader}</h4>
+                        <h2>Size:</h2>
+                        <h4>{editTeam?.size}</h4>
                         <input
-                            type="text"
-                            value={editTeamLeader}
-                            onChange={(e) => setEditTeamLeader(e.target.value)}
-                        ></input>
-                    </div>
-                    <div className={s.editPannelField}>
-                        <h2>Team Members:</h2>
-                        <h4>{editTeam?.teamMembers}</h4>
-                        <input
-                            type="text"
-                            value={editTeamMembers}
-                            onChange={(e) => setEditTeamMembers(e.target.value)}
+                            type="number"
+                            min="0"
+                            max="100"
+                            value={editSize}
+                            onChange={(e) => setEditSize(e.target.value)}
                         ></input>
                     </div>
                 </div>
@@ -94,16 +82,15 @@ function PisTeamsTable({ teams, onElementClick }: PisTeamsTableProps) {
 
     return (
         <div className={s.teams}>
-            {editTeam && <TeamEditPanel />}
+            {editTeam && <TeamEditPanel/>}
             <div className={s.header}>
                 <p>Name:</p>
-                <p>Team Leader:</p>
-                <p>Team Members:</p>
+                <p>Size:</p>
             </div>
             {teams &&
                 teams.map((team: Teams) => (
                     <PisTeamsTile key={team.id} team={team} setEditTeam={setEditTeam}
-                        onClick={onElementClick} />
+                                  onClick={onElementClick}/>
                 ))}
         </div>
     );
