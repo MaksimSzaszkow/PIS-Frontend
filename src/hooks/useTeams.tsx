@@ -59,7 +59,7 @@ export function useTeams() {
     }
   };
 
-  const addTeam = async (name: string, size: number) => {
+  const addTeam = async (name: string, teamLeader: string, teamMembers: string[] ) => {
     const response = await fetch("http://localhost:8080/teams/add-team", {
       method: "POST",
       headers: {
@@ -68,7 +68,8 @@ export function useTeams() {
       },
       body: JSON.stringify({
         name,
-        size,
+        teamLeader,
+        teamMembers
       }),
     });
     console.log(response.ok);

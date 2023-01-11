@@ -12,6 +12,8 @@ import PisTeamsTable from "../../components/PisTeamsTable/PisTeamsTable";
 const AdminPanel = () => {
   const [name, setName] = useState<string>("");
   const [size, setSize] = useState<number>(1);
+  const [teamLeader, setTeamLeader] = useState<string>("");
+  const [teamMembers, setTeamMembers] = useState<string[]>([]);
   const { getAllReservations, reservations } = useReservations();
   const { getAllRooms, rooms, addRoom } = useRooms();
   const { getAllTeams, teams, addTeam } = useTeams();
@@ -29,8 +31,8 @@ const AdminPanel = () => {
   };
 
   const handleAddTeam = () => {
-    if (name && size > 0) {
-      addTeam(name, size);
+    if (name && teamLeader && teamMembers) {
+      addTeam(name, teamLeader, teamMembers);
     }
   };
 
