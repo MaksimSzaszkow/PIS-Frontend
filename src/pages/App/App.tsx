@@ -6,9 +6,9 @@ import { router, authorizedRouter } from "../../utils/Router";
 import PisSpinner from "../../components/PisSpinner/PisSpinner";
 
 function App() {
-  const { user, loading } = useContext(AuthContext);
+  const { user, loading, token } = useContext(AuthContext);
 
-  if (loading) return <PisSpinner />;
+  if (loading || (token.length === 0 && user.authorized)) return <PisSpinner />;
 
   if (!user.authorized) return <RouterProvider router={router} />;
 

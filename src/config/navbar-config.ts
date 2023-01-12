@@ -15,7 +15,7 @@ export const NAVBAR_CONFIG: navItem[] = [
     {
         route: ROUTES.myReservations,
         text: "My Reservations",
-        isForAdmin: false,
+        isForAdmin: true,
     },
     {
         route: ROUTES.allReservations,
