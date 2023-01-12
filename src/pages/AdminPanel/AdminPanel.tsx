@@ -13,7 +13,7 @@ const AdminPanel = () => {
   const [name, setName] = useState<string>("");
   const [size, setSize] = useState<number>(1);
   const [teamLeader, setTeamLeader] = useState<string>("");
-  const [teamMembers, setTeamMembers] = useState<string[]>([]);
+  const [teamMembers, setTeamMembers] = useState<string>("");
   const { getAllReservations, reservations } = useReservations();
   const { getAllRooms, rooms, addRoom } = useRooms();
   const { getAllTeams, teams, addTeam } = useTeams();

@@ -59,7 +59,8 @@ export function useTeams() {
     }
   };
 
-  const addTeam = async (name: string, teamLeader: string, teamMembers: string[] ) => {
+  const addTeam = async (name: string, teamLeader: string, teamMembers: string ) => {
+    var newMembers = teamMembers.split(" ");
     const response = await fetch("http://localhost:8080/teams/add-team", {
       method: "POST",
       headers: {
@@ -69,7 +70,7 @@ export function useTeams() {
       body: JSON.stringify({
         name,
         teamLeader,
-        teamMembers
+        newMembers
       }),
     });
     console.log(response.ok);
