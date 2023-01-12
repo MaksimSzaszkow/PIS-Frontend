@@ -6,26 +6,28 @@ import PisButton from "../PisButton/PisButton";
 import {AuthContext} from "../../contexts/AuthContext";
 
 function PisNavbar() {
-  const {user, logout} = useContext(AuthContext);
+    const {user, logout} = useContext(AuthContext);
 
-  return (
-    <div className={s.navbar}>
-      <div className={s.userName}>{`${user.email} | ${
-        user.role || "no role"
-      }`}</div>
-      {NAVBAR_CONFIG.map((item, index) => (
-        <PisLinkButton
-          key={`nav-button-${index}`}
-          linkProps={{to: item.route}}
-        >
-          {item.text}
-        </PisLinkButton>
-      ))}
-      <PisButton key={"nav-button-logout"} onClick={logout}>
-        {"Logout"}
-      </PisButton>
-    </div>
-  );
+    return (
+        <div className={s.navbar}>
+            <div className={s.userName}>{`${user.email} | ${
+                user.role || "no role"
+            }`}</div>
+            {NAVBAR_CONFIG.map((item, index) => {
+
+                return !item.isForAdmin || user.role === "admin" ? (
+                    <PisLinkButton
+                        key={`nav-button-${index}`}
+                        linkProps={{to: item.route}}
+                    >
+                        {item.text}
+                    </PisLinkButton>) : <></>
+            })}
+            <PisButton key={"nav-button-logout"} onClick={logout}>
+                {"Logout"}
+            </PisButton>
+        </div>
+    );
 }
 
 export default PisNavbar;

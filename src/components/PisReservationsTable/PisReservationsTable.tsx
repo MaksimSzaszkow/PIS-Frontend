@@ -2,11 +2,13 @@ import {PisReservationsTableProps} from "./PisReservationsTable.types";
 import s from "./PisReservationsTable.module.css";
 import {Reservation} from "../../types/Reservation.types";
 import PisReservationTile from "../PisReservationTile/PisReservationTile";
-import React, {useMemo, useState} from "react";
+import React, {useContext, useMemo, useState} from "react";
 import {useReservations} from "../../hooks/useReservations";
 import {DateTime} from "luxon";
+import {AuthContext} from "../../contexts/AuthContext";
 
 function PisReservationsTable({reservations}: PisReservationsTableProps) {
+    const {user} = useContext(AuthContext);
     const [editReservation, setEditReservation] = useState<null | Reservation>(
         null
     );
@@ -65,42 +67,42 @@ function PisReservationsTable({reservations}: PisReservationsTableProps) {
                     <div className={s.editPannelField}>
                         <h2>Date:</h2>
                         <h4>{editReservation?.date}</h4>
-                        <input
+                        {user.role === "admin" && <input
                             type="date"
                             min={currentDate}
                             value={editDate}
                             onChange={(e) => setEditDate(e.target.value)}
-                        ></input>
+                        ></input>}
                     </div>
                     <div className={s.editPannelField}>
                         <h2>Time:</h2>
                         <h4>{editReservation?.time}</h4>
-                        <input
+                        {user.role === "admin" && <input
                             type="number"
                             min="9"
                             max="17"
                             value={editTime}
                             onChange={(e) => setEditTime(e.target.value)}
-                        ></input>
+                        ></input>}
                     </div>
                     <div className={s.editPannelField}>
                         <h2>User:</h2>
                         <h4>{editReservation?.user}</h4>
-                        <input
+                        {user.role === "admin" && <input
                             type="text"
                             value={editUser}
                             onChange={(e) => setEditUser(e.target.value)}
-                        ></input>
+                        ></input>}
                     </div>
                 </div>
-                <div className={s.editPannelActions}>
+                {user.role === "admin" && <div className={s.editPannelActions}>
                     <button className={s.editPannelAction} onClick={() => handleEdit()}>
                         Edit
                     </button>
                     <button className={s.editPannelAction} onClick={() => handleDelete()}>
                         Delete
                     </button>
-                </div>
+                </div>}
             </div>
         );
     };

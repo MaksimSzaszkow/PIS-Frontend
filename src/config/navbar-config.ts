@@ -4,20 +4,23 @@ type navItem = {
     text: string,
     route: string,
     onClick?: () => void,
-    isForAdmin?: boolean,
+    isForAdmin: boolean,
 }
 export const NAVBAR_CONFIG: navItem[] = [
     {
         route: ROUTES.home,
-        text: "Home"
+        text: "Home",
+        isForAdmin: false,
     },
     {
         route: ROUTES.myReservations,
-        text: "My Reservations"
+        text: "My Reservations",
+        isForAdmin: false,
     },
     {
         route: ROUTES.allReservations,
-        text: "All Reservations"
+        text: "All Reservations",
+        isForAdmin: false,
     },
     {
         route: ROUTES.addReservation,
